@@ -8,26 +8,22 @@ export class RecurringBillsController {
     constructor(private readonly recurringBillsService: RecurringBillsService) {}
 
     @Get()
-    findAll(): RecurringBill[] {
+    async findAll(): Promise<RecurringBill[]> {
         return this.recurringBillsService.getAll()
     }
 
     @Post()
-    addRecurringBill(@Body() recurringBill: CreateRecurringBillDto): string {
-        return `item ${recurringBill.title} created`
+    addRecurringBill(@Body() recurringBillDto: CreateRecurringBillDto): Promise<RecurringBill> {
+        return this.recurringBillsService.create(recurringBillDto)
     }
 
     @Delete(':id')
-    removeRecurringBill(@Param('id') id): string {
-        return `Deleting item number ${id}`
+    removeRecurringBill(@Param('id') id): Promise<RecurringBill> {
+        return this.recurringBillsService.delete(id)
     }
 
     @Put(':id')
-    editRecurringBill(@Param('id') id, @Body() updateRecurringBill: CreateRecurringBillDto) {
-        const returnObj = {
-            description: `Edit recurring bill number ${id}`,
-            newObj: updateRecurringBill
-        }
-        return returnObj
+    editRecurringBill(@Param('id') id, @Body() updateRecurringBill: CreateRecurringBillDto): Promise<RecurringBill> {
+        return this.recurringBillsService.update(id, updateRecurringBill)
     }
 }

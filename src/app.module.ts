@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RecurringBillsController } from './recurring-bills/recurring-bills.controller';
-import { RecurringBillsService } from './recurring-bills/recurring-bills.service';
+import { RecurringBillModule} from './recurring-bills/recurring-bills.module'
+import { MongooseModule } from '@nestjs/mongoose';
+import keys from './config/keys'
+
 
 @Module({
-  imports: [],
-  controllers: [AppController, RecurringBillsController],
-  providers: [AppService, RecurringBillsService],
+  imports: [MongooseModule.forRoot(keys.mongodburl),RecurringBillModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

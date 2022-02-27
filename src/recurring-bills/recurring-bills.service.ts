@@ -1,29 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { RecurringBill } from './interfaces/recurring-bills.interface';
+import { Model } from 'mongoose'
 
 
 @Injectable()
 export class RecurringBillsService {
-    private readonly recBills: RecurringBill[] = [
-        {
-            id: "123456",
-            title: "EDP",
-            value: "11,00",
-            gotoUrl: "google.com",
-            dueDate: "12/08/2025",
-            previousPrice: "12,00",
-        },
-        {
-            id: "123456",
-            title: "SAEG",
-            value: "10,00",
-            gotoUrl: "google.com",
-            dueDate: "11/08/2025",
-            previousPrice: "9,00",
-        },
-    ];
+    constructor(@InjectModel('RecurringBill') private readonly recurringBillModel:Model<RecurringBill>) {}
 
-    getAll(): RecurringBill[] {
-        return this.recBills
+    async getAll(): Promise<RecurringBill[]> {
+        return await this.recurringBillModel.find()
+    }
+
+    async getOne(id: string): Promise<RecurringBill> {
+        return await this.recurringBillModel.findOne({ _id: id});
+    }
+
+    async create(newBill: RecurringBill): Promise<RecurringBill> {
+        const newRecurringBill = new this.recurringBillModel(newBill)
+        return await newRecurringBill.save()
+    }
+
+    async delete(id: string): Promise<RecurringBill> {
+        return await this.recurringBillModel.findByIdAndRemove(id)
+    }
+
+    async update(id:string, bill: RecurringBill): Promise<RecurringBill> {
+        return await this.recurringBillModel.findByIdAndUpdate(id, bill,{new: true})
     }
 }
