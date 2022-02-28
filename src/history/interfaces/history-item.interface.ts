@@ -1,0 +1,6 @@
+export interface HistoryItem {
+    id?: string
+    title: string
+    value: string
+    paymentDate: string
+}
