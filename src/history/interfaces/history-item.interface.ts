@@ -3,4 +3,5 @@ export interface HistoryItem {
     title: string
     value: string
     paymentDate: string
+    expirationDate: string
 }
