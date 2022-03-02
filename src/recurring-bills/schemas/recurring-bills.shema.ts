@@ -5,4 +5,5 @@ export const RecurringBillSchema = new mongoose.Schema({
     gotoUrl: String,
     dueDate: String,
     previousPrice: String,
-});
+    billStatus: String,
+},{timestamps: true});

@@ -4,4 +4,5 @@ export interface HistoryItem {
     value: string
     paymentDate: string
     expirationDate: string
+    recurringBillId: string
 }

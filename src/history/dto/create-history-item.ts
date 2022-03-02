@@ -3,4 +3,5 @@ export class CreateHistoryItemDto {
     readonly value: string
     readonly paymentDate: string
     readonly expirationDate: string
+    readonly recurringBillId: string
 }
