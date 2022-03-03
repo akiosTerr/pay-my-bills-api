@@ -5,8 +5,10 @@ export const stringToDate = (date:string): Date => {
 }
 
 export const nextMonthDate = (date: Date): Date => {
-    const newDate = new Date(date.getFullYear(),date.getMonth()+1,date.getDay())
-    return newDate
+    const present = new Date()
+    const monthOffset = present.getDate() < date.getDate() ? 0 : 1
+    const parsedDate = new Date(date.getFullYear(),date.getMonth()+monthOffset,date.getDate())
+    return parsedDate
 }
 
 export const modifyDay = (day: number) => (date: Date): Date => {
@@ -14,10 +16,16 @@ export const modifyDay = (day: number) => (date: Date): Date => {
     return newDate
 }
 
+export const compareDateToPresent = (date: Date) => {
+    const presentDate = new Date()
+    const Difference_In_Time = date.getTime() - presentDate.getTime();  
+    const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    return Math.trunc(Difference_In_Days)
+}
+
 export const dateToString = (date: Date): string => {
     return date.toLocaleDateString()
 }
-
 
 export const checkTypeThenApplyFunction = (type: unknown, fn: Function) => (value: unknown) => {
     if(typeof value === type) {
