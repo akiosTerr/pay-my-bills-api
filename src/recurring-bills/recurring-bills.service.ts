@@ -18,16 +18,19 @@ export class RecurringBillsService {
         const formatedBills = await Promise.all(recurringBills.map
             (async (bill) => {
                 const latestHistoryItem = await this.historyItemModel.findOne({recurringBillId: bill.id}).sort('-created_at')
-                const expirationDay = Number(bill.dueDate)
-                const originDate = latestHistoryItem ? latestHistoryItem.paymentDate : bill.createdAt
-                const expireDay = pipe(
-                    checkTypeThenApplyFunction('string',stringToDate),
+
+                const rawDate = new Date(bill.dueDate)
+                rawDate.setDate(bill.dueDate.getDate()+1)
+                const expirationDay = rawDate.getDate()
+                const originDate = latestHistoryItem ? latestHistoryItem.paymentDate : undefined
+                const dueDate = originDate ? 
+                pipe(
                     modifyDay(expirationDay),
                     nextMonthDate)
-                    (originDate)
+                    (originDate): rawDate
                 
-                const billStatus = calculateBillStatus(compareDateToPresent(expireDay))
-                const dueDate = dateToString(expireDay)
+                
+                const billStatus = calculateBillStatus(compareDateToPresent(dueDate))
                 const previousPrice = latestHistoryItem ? latestHistoryItem.value : 'no payments'
                
                 const billItem: RecurringBill = {

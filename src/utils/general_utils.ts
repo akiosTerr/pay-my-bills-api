@@ -5,14 +5,14 @@ export const stringToDate = (date:string): Date => {
 }
 
 export const nextMonthDate = (date: Date): Date => {
-    const present = new Date()
-    const monthOffset = present.getDate() < date.getDate() ? 0 : 1
+    const monthOffset = 1
     const parsedDate = new Date(date.getFullYear(),date.getMonth()+monthOffset,date.getDate())
     return parsedDate
 }
 
 export const modifyDay = (day: number) => (date: Date): Date => {
-    const newDate = new Date(date.getFullYear(),date.getMonth(), day)
+    const originDate = new Date(date)
+    const newDate = new Date(originDate.getFullYear(),originDate.getMonth(), day)
     return newDate
 }
 
