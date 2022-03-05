@@ -1,8 +1,9 @@
 export interface RecurringBill {
-    id?: string
+    _id?: string
     title: string
-    value: string
     gotoUrl: string
-    dueDate: string
+    dueDate: Date
     previousPrice: string
+    billStatus: string
+    createdAt?: Date
 }
