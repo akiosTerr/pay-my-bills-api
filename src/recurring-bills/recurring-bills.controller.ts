@@ -12,6 +12,11 @@ export class RecurringBillsController {
         return this.recurringBillsService.getAll()
     }
 
+    @Get(':id')
+    async findOne(@Param('id') id): Promise<RecurringBill> {
+        return this.recurringBillsService.getOne(id)
+    }
+
     @Post()
     addRecurringBill(@Body() recurringBillDto: CreateRecurringBillDto): Promise<RecurringBill> {
         return this.recurringBillsService.create(recurringBillDto)
