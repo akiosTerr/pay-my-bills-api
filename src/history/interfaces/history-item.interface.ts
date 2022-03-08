@@ -6,3 +6,8 @@ export interface HistoryItem {
     expirationDate: string
     recurringBillId: string
 }
+
+export interface LineChartData {
+    title: string
+    data: Array<number>
+}

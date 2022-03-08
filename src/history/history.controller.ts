@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Delete, Put, Body, Param } from '@nestjs/common';
 import { CreateHistoryItemDto } from './dto/create-history-item';
 import { HistoryService } from './history.service';
-import { HistoryItem } from './interfaces/history-item.interface';
+import { HistoryItem, LineChartData } from './interfaces/history-item.interface';
 
 @Controller('history')
 export class HistoryController {
@@ -10,6 +10,10 @@ export class HistoryController {
     @Get()
     async findAll(): Promise<HistoryItem[]> {
         return this.historyItemService.getAll()
+    }
+    @Get('/chart')
+    async getChartData(): Promise<LineChartData[]> {
+        return this.historyItemService.getChartData()
     }
 
     @Post()
