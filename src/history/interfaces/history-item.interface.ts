@@ -1,7 +1,7 @@
 export interface HistoryItem {
     id?: string
     title: string
-    value: string
+    value: Number
     paymentDate: string
     expirationDate: string
     recurringBillId: string
@@ -9,5 +9,10 @@ export interface HistoryItem {
 
 export interface LineChartData {
     title: string
-    data: Array<number>
+    data: LineChartValues[]
+}
+
+interface LineChartValues {
+    value: number
+    expiration: string
 }

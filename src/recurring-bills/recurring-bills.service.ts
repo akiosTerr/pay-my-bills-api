@@ -37,7 +37,7 @@ export class RecurringBillsService {
                     _id: bill._id,
                     title: bill.title,
                     gotoUrl: bill.gotoUrl,
-                    previousPrice,
+                    previousPrice: String(previousPrice),
                     dueDate,
                     billStatus,
                 }

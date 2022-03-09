@@ -23,12 +23,15 @@ export class HistoryService {
             })
 
             const historyValues = historyData.map(history => {
-                return Number(history.value)
+                return {
+                    value: Number(history.value),
+                    expiration: history.expirationDate
+                }
             })
             const slicedData = historyValues.slice(0,5)
             return {
                 title: item.title,
-                data: slicedData
+                data: slicedData,
             }
         })
         return endItem
