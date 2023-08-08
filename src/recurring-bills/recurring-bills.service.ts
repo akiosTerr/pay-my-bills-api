@@ -23,10 +23,7 @@ export class RecurringBillsService {
                 const expirationDay = rawDate.getDate()
                 const originDate = latestHistoryItem ? latestHistoryItem.paymentDate : undefined
                 const dueDate = originDate ? 
-                pipe(
-                    modifyDay(expirationDay),
-                    nextMonthDate)
-                    (originDate): rawDate
+                pipe(modifyDay(expirationDay),nextMonthDate) (originDate): rawDate
                 
                 
                 const billStatus = calculateBillStatus(compareDateToPresent(dueDate))
@@ -36,9 +33,10 @@ export class RecurringBillsService {
                     _id: bill._id,
                     title: bill.title,
                     gotoUrl: bill.gotoUrl,
+                    billCategory: bill.billCategory,
                     previousPrice: String(previousPrice),
-                    dueDate,
                     billStatus,
+                    dueDate,
                 }
                 return billItem
             })

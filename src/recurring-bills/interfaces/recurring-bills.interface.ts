@@ -5,5 +5,6 @@ export interface RecurringBill {
     dueDate: Date
     previousPrice: string
     billStatus: string
+    billCategory: string
     createdAt?: Date
 }
