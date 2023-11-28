@@ -11,6 +11,7 @@ export class HistoryController {
     async findAll(): Promise<HistoryItem[]> {
         return this.historyItemService.getAll()
     }
+    
     @Get('/chart')
     async getChartData(): Promise<LineChartData[]> {
         return this.historyItemService.getChartData()

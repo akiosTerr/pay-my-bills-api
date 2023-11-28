@@ -7,7 +7,10 @@ import { HistoryItem, LineChartData } from './interfaces/history-item.interface'
 
 @Injectable()
 export class HistoryService {
-    constructor(@InjectModel('HistoryItem') private readonly historyItemModel:Model<HistoryItem>,@InjectModel('RecurringBill') private readonly recurringBillModel:Model<RecurringBill>) {}
+    constructor(
+        @InjectModel('HistoryItem') private readonly historyItemModel:Model<HistoryItem>,
+        @InjectModel('RecurringBill') private readonly recurringBillModel:Model<RecurringBill>
+    ) {}
 
     async getAll(): Promise<HistoryItem[]> {
         return await this.historyItemModel.find()
