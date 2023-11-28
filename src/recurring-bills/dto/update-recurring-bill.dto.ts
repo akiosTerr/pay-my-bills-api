@@ -1,16 +1,16 @@
-import { IsDate, IsNotEmpty, IsString } from "class-validator"
+import { IsDate, IsOptional, IsString } from "class-validator"
 
-export class CreateRecurringBillDto {
-    @IsNotEmpty()
+export class UpdateRecurringBillDto {
+    @IsOptional()
     @IsString()
     readonly title: string
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly gotoUrl: string
-    @IsNotEmpty()
+    @IsOptional()
     @IsDate()
     readonly dueDate: Date
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly billCategory: string
 }

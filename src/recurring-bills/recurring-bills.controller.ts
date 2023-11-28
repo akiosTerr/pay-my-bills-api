@@ -2,6 +2,7 @@ import { Controller, Get, Post, Delete, Put, Body, Param } from '@nestjs/common'
 import { CreateRecurringBillDto } from './dto/create-recurring-bill.dto';
 import { RecurringBill } from './interfaces/recurring-bills.interface';
 import { RecurringBillsService } from './recurring-bills.service';
+import { UpdateRecurringBillDto } from './dto/update-recurring-bill.dto';
 
 @Controller('recurring-bills')
 export class RecurringBillsController {
@@ -28,7 +29,7 @@ export class RecurringBillsController {
     }
 
     @Put(':id')
-    editRecurringBill(@Param('id') id, @Body() updateRecurringBill: CreateRecurringBillDto): Promise<RecurringBill> {
+    editRecurringBill(@Param('id') id, @Body() updateRecurringBill: UpdateRecurringBillDto): Promise<RecurringBill> {
         return this.recurringBillsService.update(id, updateRecurringBill)
     }
 }

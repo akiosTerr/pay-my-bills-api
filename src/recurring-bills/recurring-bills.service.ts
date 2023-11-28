@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RecurringBill } from './interfaces/recurring-bills.interface';
 import { Model } from 'mongoose'
@@ -6,6 +6,7 @@ import { CreateRecurringBillDto } from './dto/create-recurring-bill.dto';
 import { HistoryItem } from 'src/history/interfaces/history-item.interface';
 import { checkTypeThenApplyFunction, compareDateToPresent, dateToString, modifyDay, nextMonthDate, pipe, stringToDate } from 'src/utils/general_utils';
 import { calculateBillStatus } from 'src/utils/recurring_bill_utils';
+import mongoose from 'mongoose';
 
 
 @Injectable()
@@ -45,7 +46,17 @@ export class RecurringBillsService {
     }
 
     async getOne(id: string): Promise<RecurringBill> {
-        return await this.recurringBillModel.findOne({ _id: id});
+        const isValidId =  mongoose.isValidObjectId(id)
+        if(!isValidId) {
+            throw new BadRequestException('Invalid ID: please enter a valid ID')
+        }
+        const bill = await this.recurringBillModel.findOne({ _id: id});
+
+        if (!bill) {
+            throw new NotFoundException('Bill not found')
+        }
+
+        return bill
     }
 
     async create(newBill: CreateRecurringBillDto): Promise<RecurringBill> {
@@ -54,7 +65,17 @@ export class RecurringBillsService {
     }
 
     async delete(id: string): Promise<RecurringBill> {
-        return await this.recurringBillModel.findByIdAndRemove(id)
+        const isValidId =  mongoose.isValidObjectId(id)
+        if(!isValidId) {
+            throw new BadRequestException('Invalid ID: please enter a valid ID')
+        }
+
+        const bill = await this.recurringBillModel.findByIdAndRemove(id)
+
+        if (!bill) {
+            throw new NotFoundException('Bill not found')
+        }
+        return bill
     }
 
     async update(id:string, bill: CreateRecurringBillDto): Promise<RecurringBill> {
