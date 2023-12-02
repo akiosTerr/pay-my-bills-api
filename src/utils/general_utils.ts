@@ -10,6 +10,24 @@ export const nextMonthDate = (date: Date): Date => {
     return parsedDate
 }
 
+export const getNextDateByMonthDay = (targetDay) => {
+    // Get the current date
+    const currentDate = new Date();
+  
+    // Set the target day for the current month
+    const currentMonthTargetDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), targetDay);
+
+    // Set the target day for the next month
+    const nextMonthTargetDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, targetDay);
+  
+    // Determine the closest date
+    if (currentDate.getDate() < targetDay) {
+      return currentMonthTargetDate;
+    } else {
+      return nextMonthTargetDate;
+    }
+  }
+
 export const modifyDay = (day: number) => (date: Date): Date => {
     const originDate = new Date(date)
     const newDate = new Date(originDate.getFullYear(),originDate.getMonth(), day)

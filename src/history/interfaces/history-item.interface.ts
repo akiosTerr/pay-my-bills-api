@@ -1,3 +1,5 @@
+import { RecurringBill } from "src/recurring-bills/schemas/recurring-bills.shema"
+
 export interface HistoryItem {
     id?: string
     title: string

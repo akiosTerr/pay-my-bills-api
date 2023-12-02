@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { RecurringBillModule} from './recurring-bills/recurring-bills.module'
 import { MongooseModule } from '@nestjs/mongoose';
 import { HistoryModule } from './history/history.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { HistoryModule } from './history/history.module';
     }),
     MongooseModule.forRoot(process.env.DB_URI),
     RecurringBillModule, 
-    HistoryModule
+    HistoryModule, 
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

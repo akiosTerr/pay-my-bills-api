@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Put, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Put, Body, Param, Req } from '@nestjs/common';
 import { CreateHistoryItemDto } from './dto/create-history-item';
 import { HistoryService } from './history.service';
 import { HistoryItem, LineChartData } from './interfaces/history-item.interface';
@@ -18,7 +18,9 @@ export class HistoryController {
     }
 
     @Post()
-    addHistoryItem(@Body() historyItemDto: CreateHistoryItemDto): Promise<HistoryItem> {
+    addHistoryItem(
+        @Body() historyItemDto: CreateHistoryItemDto,
+    ): Promise<HistoryItem> {
         return this.historyItemService.create(historyItemDto)
     }
 

@@ -1,4 +1,5 @@
-import { IsDate, IsOptional, IsString } from "class-validator"
+import { IsDate, IsEmpty, IsNumber, IsOptional, IsString } from "class-validator"
+import { User } from "src/auth/schemas/user.schema"
 
 export class UpdateRecurringBillDto {
     @IsOptional()
@@ -6,11 +7,8 @@ export class UpdateRecurringBillDto {
     readonly title: string
     @IsOptional()
     @IsString()
-    readonly gotoUrl: string
-    @IsOptional()
-    @IsDate()
-    readonly dueDate: Date
-    @IsOptional()
-    @IsString()
     readonly billCategory: string
+    @IsOptional()
+    @IsNumber()
+    readonly expirationDay: number
 }

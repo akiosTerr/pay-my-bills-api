@@ -45,6 +45,7 @@ export class HistoryService {
     }
 
     async create(newItem: HistoryItem): Promise<HistoryItem> {
+
         const newHistoryItem = new this.historyItemModel(newItem)
         return await newHistoryItem.save()
     }
