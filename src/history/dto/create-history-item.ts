@@ -1,18 +1,15 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { IsNotEmpty, IsNumber, IsString, IsDateString } from "class-validator"
 
 export class CreateHistoryItemDto {
-    @IsNotEmpty()
-    @IsString()
-    readonly title: string
     @IsNotEmpty()
     @IsNumber()
     readonly value: number
     @IsNotEmpty()
-    @IsString()
-    readonly paymentDate: string
+    @IsDateString()
+    readonly paymentDate: Date
     @IsNotEmpty()
-    @IsString()
-    readonly expirationDate: string
+    @IsDateString()
+    readonly expirationDate: Date
     @IsNotEmpty()
     @IsString()
     readonly recurringBillId: string

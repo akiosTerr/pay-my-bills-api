@@ -2,10 +2,10 @@ import { RecurringBill } from "src/recurring-bills/schemas/recurring-bills.shema
 
 export interface HistoryItem {
     id?: string
-    title: string
+    title?: string
     value: Number
-    paymentDate: string
-    expirationDate: string
+    paymentDate: Date
+    expirationDate: Date
     recurringBillId: string
 }
 
@@ -16,5 +16,5 @@ export interface LineChartData {
 
 interface LineChartValues {
     value: number
-    expiration: string
+    expiration: Date
 }

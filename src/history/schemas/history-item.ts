@@ -1,6 +1,4 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { RecurringBill } from "src/recurring-bills/schemas/recurring-bills.shema"
-import mongoose from "mongoose"
 
 @Schema({
     timestamps: true
@@ -13,10 +11,10 @@ export class HistoryItem {
     value: number
 
     @Prop()
-    paymentDate: string
+    paymentDate: Date
 
     @Prop()
-    expirationDate: string
+    expirationDate: Date
 
     @Prop()
     recurringBillId: string

@@ -5,9 +5,9 @@ export const stringToDate = (date:string): Date => {
 }
 
 export const nextMonthDate = (date: Date): Date => {
-    const monthOffset = 1
-    const parsedDate = new Date(date.getFullYear(),date.getMonth()+monthOffset,date.getDate())
-    return parsedDate
+    const newDate = new Date(date) 
+    newDate.setMonth(newDate.getMonth() + 1);
+    return newDate
 }
 
 export const getNextDateByMonthDay = (targetDay) => {
@@ -52,4 +52,6 @@ export const checkTypeThenApplyFunction = (type: unknown, fn: Function) => (valu
         return value
     }
 }
+
+
 export const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);

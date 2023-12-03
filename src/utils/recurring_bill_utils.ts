@@ -1,6 +1,5 @@
 export const calculateBillStatus = (dayDifference) => {
     let status = ''
-    // console.log(dayDifference)
     switch (true) {
         case dayDifference < 0:
             status = 'danger'

@@ -1,11 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RecurringBill } from './interfaces/recurring-bills.interface';
-import { Model } from 'mongoose'
+import { Model } from 'mongoose';
 import { CreateRecurringBillDto } from './dto/create-recurring-bill.dto';
 import { HistoryItem } from 'src/history/interfaces/history-item.interface';
-import { checkTypeThenApplyFunction, compareDateToPresent, dateToString, getNextDateByMonthDay, modifyDay, nextMonthDate, pipe, stringToDate } from 'src/utils/general_utils';
-import { calculateBillStatus } from 'src/utils/recurring_bill_utils';
+import { getNextDateByMonthDay } from 'src/utils/general_utils';
 import mongoose from 'mongoose';
 import { User } from 'src/auth/schemas/user.schema';
 import { UpdateRecurringBillDto } from './dto/update-recurring-bill.dto';
