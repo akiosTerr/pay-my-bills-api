@@ -14,7 +14,6 @@ import { UpdateRecurringBillDto } from './dto/update-recurring-bill.dto';
 export class RecurringBillsService {
     constructor(
             @InjectModel('RecurringBill') private readonly recurringBillModel:Model<RecurringBill>,
-            @InjectModel('HistoryItem') private readonly historyItemModel:Model<HistoryItem>
         ) {}
 
     async getAll(): Promise<RecurringBill[]> {

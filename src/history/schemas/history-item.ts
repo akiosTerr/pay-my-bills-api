@@ -7,7 +7,7 @@ export class HistoryItem {
     @Prop()
     title: string
 
-    @Prop()
+    @Prop({unique: false})
     value: number
 
     @Prop()

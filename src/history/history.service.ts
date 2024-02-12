@@ -64,18 +64,32 @@ export class HistoryService {
         if(!isValidId) {
             throw new BadRequestException('Invalid ID: please enter a valid ID')
         }
-        
-        const nextExpirationDate = nextMonthDate(newItem.expirationDate)
 
-        const updatedBill = { nextExpirationDate }
-        
-        const newBill = await this.recurringBillModel.findByIdAndUpdate(newItem.recurringBillId, updatedBill,{new: true})
+        const session = await this.historyItemModel.db.startSession();
 
-        const formatedHistoryItem = Object.assign(newItem, {title: newBill.title})
+        session.startTransaction();
 
-        const newHistoryItem = new this.historyItemModel(formatedHistoryItem)
-        
-        return await newHistoryItem.save()
+        try {
+            const nextExpirationDate = nextMonthDate(newItem.expirationDate)
+
+            const formatedHistoryItem = Object.assign(newItem, {title: newItem.title})
+
+            const newHistoryItem = await new this.historyItemModel(formatedHistoryItem).save()
+
+            const updatedBill = { nextExpirationDate }
+
+            await this.recurringBillModel.findByIdAndUpdate(newItem.recurringBillId, updatedBill,{new: true})
+            
+            await session.commitTransaction();
+            session.endSession();
+
+            return newHistoryItem
+
+        } catch (error) {
+            await session.abortTransaction();
+            session.endSession();
+            console.error('Transaction aborted due to error:', error);
+        }
     }
 
     async delete(id: string): Promise<HistoryItem> {
