@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsNumber, IsString, IsDateString } from "class-validator"
+import { IsNotEmpty, IsNumber, IsString, IsDateString, IsEmpty } from "class-validator"
+import { User } from "src/auth/schemas/user.schema"
 
 export class CreateHistoryItemDto {
     @IsNotEmpty()
@@ -13,4 +14,6 @@ export class CreateHistoryItemDto {
     @IsNotEmpty()
     @IsString()
     readonly recurringBillId: string
+    @IsEmpty({message: 'you cannot pass user id'})
+    readonly user: User
 }

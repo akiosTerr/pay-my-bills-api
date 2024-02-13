@@ -16,8 +16,8 @@ export class RecurringBillsService {
             @InjectModel('RecurringBill') private readonly recurringBillModel:Model<RecurringBill>,
         ) {}
 
-    async getAll(): Promise<RecurringBill[]> {
-        const recurringBills = await this.recurringBillModel.find()
+    async getAll(userId: string): Promise<RecurringBill[]> {
+        const recurringBills = await this.recurringBillModel.find({user: userId})
         return recurringBills
     }
 

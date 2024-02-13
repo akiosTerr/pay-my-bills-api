@@ -23,8 +23,8 @@ export class HistoryService {
         return items
     }
         
-    async getAll(): Promise<HistoryItem[]> {
-        return await this.historyItemModel.find()
+    async getAll(userId: string): Promise<HistoryItem[]> {
+        return await this.historyItemModel.find({user: userId})
     }
 
     async getChartData(): Promise<LineChartData[]> {
@@ -59,7 +59,7 @@ export class HistoryService {
         return await this.historyItemModel.findOne({ _id: id});
     }
 
-    async create(newItem: HistoryItem): Promise<HistoryItem> {
+    async create(newItem: HistoryItem, user: string): Promise<HistoryItem> {
         const isValidId =  mongoose.isValidObjectId(newItem.recurringBillId)
         if(!isValidId) {
             throw new BadRequestException('Invalid ID: please enter a valid ID')
@@ -72,7 +72,7 @@ export class HistoryService {
         try {
             const nextExpirationDate = nextMonthDate(newItem.expirationDate)
 
-            const formatedHistoryItem = Object.assign(newItem, {title: newItem.title})
+            const formatedHistoryItem = Object.assign(newItem, {title: newItem.title, user})
 
             const newHistoryItem = await new this.historyItemModel(formatedHistoryItem).save()
 

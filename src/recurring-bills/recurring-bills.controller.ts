@@ -11,8 +11,9 @@ export class RecurringBillsController {
     constructor(private readonly recurringBillsService: RecurringBillsService) {}
 
     @Get()
-    async findAll(): Promise<RecurringBill[]> {
-        return this.recurringBillsService.getAll()
+    async findAll(@Req() req): Promise<RecurringBill[]> {
+        const userId = req.user.id
+        return this.recurringBillsService.getAll(userId)
     }
 
     @Get(':id')

@@ -15,8 +15,8 @@ export class HistoryController {
     }
 
     @Get()
-    async findAll(): Promise<HistoryItem[]> {
-        return this.historyItemService.getAll()
+    async findAll(@Req() req): Promise<HistoryItem[]> {
+        return this.historyItemService.getAll(req.user.id)
     }
     
     @Get('/chart')
@@ -27,8 +27,9 @@ export class HistoryController {
     @Post()
     addHistoryItem(
         @Body() historyItemDto: CreateHistoryItemDto,
+        @Req() req
     ): Promise<HistoryItem> {
-        return this.historyItemService.create(historyItemDto)
+        return this.historyItemService.create(historyItemDto, req.user.id)
     }
 
     @Delete(':id')
