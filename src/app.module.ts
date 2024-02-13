@@ -16,7 +16,7 @@ import { join } from 'path';
       isGlobal: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'pay-my-bills', 'build'),
+      rootPath: join(__dirname, '..', 'build'),
     }),
     MongooseModule.forRoot(process.env.DB_URI),
     RecurringBillModule, 

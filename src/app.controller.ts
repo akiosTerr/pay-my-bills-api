@@ -8,6 +8,6 @@ export class AppController {
   
   @Get() 
   serveApp(@Res() response) {
-    response.sendFile(join(__dirname, '..', '..', 'pay-my-bills', 'build', 'index.html'));
+    response.sendFile(join(__dirname,'..', 'build', 'index.html'));
   }
 }
