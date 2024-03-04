@@ -21,6 +21,9 @@ export class HistoryItem {
     @Prop()
     recurringBillId: string
 
+    @Prop()
+    recurringBillGroupId: string
+
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User'})
     user: User
 }

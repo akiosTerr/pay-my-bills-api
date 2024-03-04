@@ -14,6 +14,9 @@ export class CreateHistoryItemDto {
     @IsNotEmpty()
     @IsString()
     readonly recurringBillId: string
+    @IsNotEmpty()
+    @IsString()
+    readonly recurringBillGroupId: string
     @IsEmpty({message: 'you cannot pass user id'})
     readonly user: User
 }
