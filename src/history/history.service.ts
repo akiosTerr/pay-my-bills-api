@@ -70,11 +70,12 @@ export class HistoryService {
         session.startTransaction();
 
         try {
-            const nextExpirationDate = nextMonthDate(newItem.expirationDate)
 
             const formatedHistoryItem = Object.assign(newItem, {title: newItem.title, user})
 
             const newHistoryItem = await new this.historyItemModel(formatedHistoryItem).save()
+
+            const nextExpirationDate = nextMonthDate(newItem.expirationDate)
 
             const updatedBill = { nextExpirationDate }
 

@@ -25,7 +25,7 @@ export class HistoryController {
     }
 
     @Post()
-    addHistoryItem(
+    createPayment(
         @Body() historyItemDto: CreateHistoryItemDto,
         @Req() req
     ): Promise<HistoryItem> {
