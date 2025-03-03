@@ -4,26 +4,27 @@ import { UpdateCryptoDto } from './dto/update-crypto.dto';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/auth/schemas/user.schema';
+import { CryptoObject } from './interfaces/crypto.interface';
 
 
 @Injectable()
 export class CryptoService {
   constructor(
-    @InjectModel('Crypto') private readonly cryptoModel: Model<Crypto>,
+    @InjectModel('Crypto') private readonly cryptoModel: Model<CryptoObject>,
   ) { }
 
-  async create(cryptoItem: CreateCryptoDto, user: User): Promise<Crypto> {
+  async create(cryptoItem: CreateCryptoDto, user: User): Promise<CryptoObject> {
     const fcrypto = Object.assign(cryptoItem, {user: user._id})
     const newCrypto = new this.cryptoModel(fcrypto)
     return await newCrypto.save()
   }
 
-  async findAll(userId: string): Promise<Crypto[]> {
+  async findAll(userId: string): Promise<CryptoObject[]> {
     const crypto = await this.cryptoModel.find({user: userId})
     return crypto;
   }
 
-  async findOne(id: number): Promise<Crypto> {
+  async findOne(id: number): Promise<CryptoObject> {
     const crypto = await this.cryptoModel.find({ id: id })
     return crypto[0];
   }
@@ -32,7 +33,7 @@ export class CryptoService {
     return `This action updates a #${id} crypto`;
   }
 
-  async remove(id: string): Promise<Crypto> {
+  async remove(id: string): Promise<CryptoObject> {
     const isValidId = mongoose.isValidObjectId(id)
     if (!isValidId) {
       throw new BadRequestException('Invalid ID: please enter a valid ID')

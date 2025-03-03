@@ -1,4 +1,4 @@
-export interface Crypto {
+export interface CryptoObject {
     _id?: string
     urlname: string
     name: string
