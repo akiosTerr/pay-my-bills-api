@@ -3,6 +3,7 @@ import { CreateCryptoDto } from './dto/create-crypto.dto';
 import { UpdateCryptoDto } from './dto/update-crypto.dto';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { User } from 'src/auth/schemas/user.schema';
 
 
 @Injectable()
@@ -11,14 +12,14 @@ export class CryptoService {
     @InjectModel('Crypto') private readonly cryptoModel: Model<Crypto>,
   ) { }
 
-  async create(cryptoItem: CreateCryptoDto): Promise<Crypto> {
-
-    const newCrypto = new this.cryptoModel(cryptoItem)
+  async create(cryptoItem: CreateCryptoDto, user: User): Promise<Crypto> {
+    const fcrypto = Object.assign(cryptoItem, {user: user._id})
+    const newCrypto = new this.cryptoModel(fcrypto)
     return await newCrypto.save()
   }
 
-  async findAll(): Promise<Crypto[]> {
-    const crypto = await this.cryptoModel.find()
+  async findAll(userId: string): Promise<Crypto[]> {
+    const crypto = await this.cryptoModel.find({user: userId})
     return crypto;
   }
 

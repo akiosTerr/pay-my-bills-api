@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { CryptoService } from './crypto.service';
 import { CreateCryptoDto } from './dto/create-crypto.dto';
 import { UpdateCryptoDto } from './dto/update-crypto.dto';
@@ -7,16 +7,20 @@ import { AuthGuard } from '@nestjs/passport';
 @UseGuards(AuthGuard())
 @Controller('crypto')
 export class CryptoController {
-  constructor(private readonly cryptoService: CryptoService) {}
+  constructor(private readonly cryptoService: CryptoService) { }
 
   @Post()
-  create(@Body() createCryptoDto: CreateCryptoDto) {
-    return this.cryptoService.create(createCryptoDto);
+  create(
+    @Body() createCryptoDto: CreateCryptoDto,
+    @Req() req
+  ) {
+    return this.cryptoService.create(createCryptoDto, req.user);
   }
 
   @Get()
-  findAll() {
-    return this.cryptoService.findAll();
+  findAll(@Req() req) {
+    const userId = req.user.id
+    return this.cryptoService.findAll(userId);
   }
 
   @Get(':id')
