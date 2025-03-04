@@ -1,7 +1,5 @@
-version: '3.8'
-
 services:
-  pmb-app:
+  pmb-server:
     build:
       context: .
       dockerfile: Dockerfile
