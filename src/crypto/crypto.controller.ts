@@ -30,7 +30,7 @@ export class CryptoController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCryptoDto: UpdateCryptoDto) {
-    return this.cryptoService.update(+id, updateCryptoDto);
+    return this.cryptoService.update(id, updateCryptoDto);
   }
 
   @Delete(':id')

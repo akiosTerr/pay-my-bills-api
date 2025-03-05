@@ -29,8 +29,8 @@ export class CryptoService {
     return crypto[0];
   }
 
-  async update(id: number, updateCryptoDto: UpdateCryptoDto) {
-    return `This action updates a #${id} crypto`;
+  async update(id: string, updateCryptoDto: UpdateCryptoDto) {
+    return await this.cryptoModel.findByIdAndUpdate(id, updateCryptoDto,{new: true})
   }
 
   async remove(id: string): Promise<CryptoObject> {

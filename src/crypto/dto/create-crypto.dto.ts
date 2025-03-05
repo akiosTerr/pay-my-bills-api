@@ -6,6 +6,9 @@ export class CreateCryptoDto {
     @IsString()
     readonly urlname: string
     @IsNotEmpty()
+    @IsNumber()
+    readonly amount: number
+    @IsNotEmpty()
     @IsString()
     readonly name: string
     @IsNotEmpty()
